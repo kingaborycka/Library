@@ -13,11 +13,8 @@ public class BooksListFrame extends JPanel implements ActionListener {
         setLayout(new BorderLayout());
         setBackground(new Color(40, 140, 190));
 
-        ArticleDAO DataBase = new ArticleDAO();
-        DataBase.getData();
-
         JTable BooksTable = new JTable(0,7);
-        BooksTable.setModel(new DefaultTableModel(DataBase.Library.getShortListData(),DataBase.Library.getShortListColumns()));
+        BooksTable.setModel(new DefaultTableModel(Main.DataBase.Library.getShortListData(), Main.DataBase.Library.getShortListColumns()));
         BooksTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         BooksTable.setFont(new Font("Serif", Font.CENTER_BASELINE,16));
         BooksTable.setRowHeight(24);

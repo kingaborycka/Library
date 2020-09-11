@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class Menu extends JPanel implements ActionListener{
     JButton bBooksList, bAddBook, bBorrowBook, bReturnBook;
 
+
     public Menu() {
         setBackground(new Color(150,150,150));
         setLayout(new GridLayout(4,1));
@@ -39,6 +40,8 @@ public class Menu extends JPanel implements ActionListener{
 
         }else if (source == bReturnBook) {
             Main.switchPanel(new ReturnBook());
+        }else if (source == bBorrowBook) {
+            Main.switchPanel(new BorrowBook());
         }
     }
 }

@@ -67,4 +67,10 @@ public class MyBook {
     public int getLiczbaWypozyczen() {
         return this.liczbaWypozyczen;
     }
+    public void borrowMe() {
+        this.czyWypozyczona = true;
+    }
+    public void returnMe() {
+        this.czyWypozyczona = false;
+    }
 }

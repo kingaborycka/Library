@@ -2,6 +2,7 @@ import javax.swing.*;
 
 public class Main {
     private static JFrame window;
+    public static ArticleDAO DataBase;
 
     public static void main(String[] args) {
         window = new JFrame();
@@ -9,10 +10,11 @@ public class Main {
         window.setTitle("MyLibrary");
         window.setLocation(300, 300);
         window.setVisible(true);
-
         window.add(new Menu());
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
+        DataBase = new ArticleDAO();
+        DataBase.getData();
     }
 
     public static void switchPanel(JPanel panel) {

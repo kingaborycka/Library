@@ -7,7 +7,7 @@ import java.util.List;
 public class ArticleDAO {
     Statement myStmt;
     Connection myConn;
-    MyLibrary Library;
+    public MyLibrary Library;
 
     public void connect() {
         try{

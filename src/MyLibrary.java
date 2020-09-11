@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -32,5 +33,22 @@ public class MyLibrary {
             data.addElement(row);
         }
         return data;
+    }
+
+    public void borrowBook(int id){
+        for (MyBook book:listaKsiazek){
+            if(book.getId()==id){
+                book.borrowMe();
+                break;
+            }
+        }
+    }
+    public void returnBook(int id){
+        for (MyBook book:listaKsiazek){
+            if(book.getId()==id){
+                book.returnMe();
+                break;
+            }
+        }
     }
 }
