@@ -1,3 +1,6 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MyBook {
@@ -60,17 +63,26 @@ public class MyBook {
     }
 
     public String getCzyWypozyczona() {
-        if(this.czyWypozyczona == false) return "Nie";
-        else return "Tak";
+        if(this.czyWypozyczona == false){
+            return "Nie";
+        } else{return "Tak";}
     }
 
     public int getLiczbaWypozyczen() {
         return this.liczbaWypozyczen;
     }
-    public void borrowMe() {
-        this.czyWypozyczona = true;
+    public void borrowMe(String bool) {
+        Connection conn = Main.DataBase.myConn;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = conn.prepareStatement("UPDATE Books SET czyWypozyczona="+bool+ " WHERE id="+this.id);
+            preparedStatement.executeUpdate();
+            Main.DataBase.getData();
+            System.out.println(this.czyWypozyczona);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
-    public void returnMe() {
-        this.czyWypozyczona = false;
-    }
+
 }

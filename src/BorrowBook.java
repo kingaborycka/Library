@@ -33,7 +33,7 @@ public class BorrowBook extends JPanel implements ActionListener {
         if (source == bMenu) {
             Main.switchPanel(new Menu());
         }else if (source == bOk){
-            Main.DataBase.Library.borrowBook(Integer.parseInt(fId.getText()));
+            Main.DataBase.Library.borrowBook(Integer.parseInt(fId.getText()),"true");
             setBackground(new Color(100, 130, 100));
 
         }

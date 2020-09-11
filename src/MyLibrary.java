@@ -35,18 +35,10 @@ public class MyLibrary {
         return data;
     }
 
-    public void borrowBook(int id){
+    public void borrowBook(int id,String bool){
         for (MyBook book:listaKsiazek){
             if(book.getId()==id){
-                book.borrowMe();
-                break;
-            }
-        }
-    }
-    public void returnBook(int id){
-        for (MyBook book:listaKsiazek){
-            if(book.getId()==id){
-                book.returnMe();
+                book.borrowMe(bool);
                 break;
             }
         }

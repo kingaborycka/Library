@@ -39,7 +39,7 @@ public class ArticleDAO {
                         myRs.getString("tytul"),
                         Integer.parseInt(year[0]),
                         List.of(myRs.getString("kategorie").split(",")),
-                        Boolean.parseBoolean(myRs.getString("czyWypozyczona")),
+                        myRs.getBoolean("czyWypozyczona"),
                         Integer.parseInt(myRs.getString("liczbaWypozyczen"))
                 );
                 Library.listaKsiazek.add(book);
