@@ -1,15 +1,21 @@
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Menu extends JPanel implements ActionListener{
-    JButton bBooksList, bAddBook, bBorrowBook, bReturnBook;
+    JButton bBooksList, bAddBook, bBorrowBook, bReturnBook, bEditBook;
+    public static ArticleDAO DataBase;
+
 
 
     public Menu() {
         setBackground(new Color(150,150,150));
-        setLayout(new GridLayout(4,1));
+        setLayout(new GridBagLayout());
+
+        DataBase = new ArticleDAO();
+        DataBase.getData();
 
         bBooksList = new JButton("Lista książek");
         add(bBooksList);
@@ -26,6 +32,10 @@ public class Menu extends JPanel implements ActionListener{
         bReturnBook = new JButton("Zwróć książkę");
         add(bReturnBook);
         bReturnBook.addActionListener(this);
+
+        bEditBook = new JButton("Edytuj książkę");
+        add(bEditBook);
+        bEditBook.addActionListener(this);
     }
 
 
@@ -39,9 +49,11 @@ public class Menu extends JPanel implements ActionListener{
             Main.switchPanel(new AddBook());
 
         }else if (source == bReturnBook) {
-            Main.switchPanel(new ReturnBook());
+            Main.switchPanel(new BookId("r","zwrócona"));
         }else if (source == bBorrowBook) {
-            Main.switchPanel(new BorrowBook());
+            Main.switchPanel(new BookId("b","wypożyczona"));
+        }else if (source == bEditBook) {
+            Main.switchPanel(new BookId("e","edytowana"));
         }
     }
 }

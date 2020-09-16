@@ -10,11 +10,9 @@ public class Main {
         window.setTitle("MyLibrary");
         window.setLocation(300, 300);
         window.setVisible(true);
-        window.add(new Menu());
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        switchPanel(new Menu());
 
-        DataBase = new ArticleDAO();
-        DataBase.getData();
     }
 
     public static void switchPanel(JPanel panel) {
@@ -22,5 +20,7 @@ public class Main {
         window.add(panel);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.validate();
+        DataBase = new ArticleDAO();
+        DataBase.getData();
     }
 }

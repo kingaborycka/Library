@@ -15,7 +15,7 @@ public class ArticleDAO {
             myConn = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/LibraryBase?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
                     "root",
-                    "In4matyk@");
+                    "");
             //Create a statement
             myStmt = myConn.createStatement();
 

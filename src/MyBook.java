@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -71,17 +72,68 @@ public class MyBook {
     public int getLiczbaWypozyczen() {
         return this.liczbaWypozyczen;
     }
-    public void borrowMe(String bool) {
+    public static void alert(String bool,String access){
+        String message1,message2;
+        if(access == "admission") {
+            message1 = "Książka została";
+            if (bool == "false") {
+                message2 = " zwrócona.";
+            } else {
+                message2 = " wypożyczona.";
+            }
+        }else {
+            message1 = "Ta książka jest już";
+            if (bool == "true") {
+                message2 = " wypożyczona.";
+            } else {
+                message2 = " zwrócona.";
+            }
+        }
+        JOptionPane.showMessageDialog(null, message1 + message2);
+
+    }
+
+    public void getMe(String action) {
+
+        if (action == "b") {
+            borrowReturnMe("true");
+        } else if (action == "r") {
+            borrowReturnMe("false");
+        } else {
+            editMe();//edycja
+        }
+    }
+    public void editMe(){
         Connection conn = Main.DataBase.myConn;
         PreparedStatement preparedStatement = null;
-        try {
-            preparedStatement = conn.prepareStatement("UPDATE Books SET czyWypozyczona="+bool+ " WHERE id="+this.id);
-            preparedStatement.executeUpdate();
-            Main.DataBase.getData();
-            System.out.println(this.czyWypozyczona);
+//        try {
+//            preparedStatement = conn.prepareStatement("UPDATE Books SET czyWypozyczona=" + bool + " WHERE id=" + this.id);
+//            preparedStatement.executeUpdate();
+//            Main.DataBase.getData();
+//            alert(bool,"admission");
+//
+//
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+    }
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    public void borrowReturnMe(String bool){
+        if(bool == String.valueOf(this.czyWypozyczona)){
+            alert(bool,"rejection");
+        }else {
+            Connection conn = Main.DataBase.myConn;
+            PreparedStatement preparedStatement = null;
+            try {
+                preparedStatement = conn.prepareStatement("UPDATE Books SET czyWypozyczona=" + bool + " WHERE id=" + this.id);
+                preparedStatement.executeUpdate();
+                Main.DataBase.getData();
+                alert(bool,"admission");
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 

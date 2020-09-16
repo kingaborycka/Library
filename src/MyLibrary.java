@@ -35,12 +35,18 @@ public class MyLibrary {
         return data;
     }
 
-    public void borrowBook(int id,String bool){
-        for (MyBook book:listaKsiazek){
-            if(book.getId()==id){
-                book.borrowMe(bool);
+    public void getBook(int id,String action){
+        Boolean alert=true;
+        for (MyBook book : listaKsiazek) {
+            if (book.getId() == id) {
+                book.getMe(action);
+                alert = false;
                 break;
             }
         }
+        if(alert==true)
+            JOptionPane.showMessageDialog(null, "Nie ma takiego identyfikatora.");
     }
+
 }
+
