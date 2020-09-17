@@ -1,31 +1,49 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 public class BooksListFrame extends JPanel implements ActionListener {
-    JButton bMenu;
+    Menu.MyButton bMenu;
 
     public BooksListFrame() {
-        setLayout(new BorderLayout());
-        setBackground(new Color(40, 140, 190));
+        setLayout(null);
+        setBackground(new Color(255,255,234));
 
-        JTable BooksTable = new JTable(0,7);
+        JTable BooksTable = new JTable(0,7){
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component component = super.prepareRenderer(renderer, row, column);
+                int rendererWidth = component.getPreferredSize().width;
+                TableColumn tableColumn = getColumnModel().getColumn(column);
+                tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+                return component;
+            }
+        };
         BooksTable.setModel(new DefaultTableModel(Main.DataBase.Library.getShortListData(), Main.DataBase.Library.getShortListColumns()));
-        BooksTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        BooksTable.setFont(new Font("Serif", Font.CENTER_BASELINE,16));
-        BooksTable.setRowHeight(24);
+        BooksTable.setFont(new Font("Verdana", Font.ITALIC,16));
+        BooksTable.setRowHeight(34);
         BooksTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        BooksTable.setBounds(0,0,800,5250);
+        BooksTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         JScrollPane scrollPane = new JScrollPane(BooksTable);
-        add(scrollPane,BorderLayout.CENTER);
+        scrollPane.setBounds(0,30,800,570);
+        scrollPane.setBackground(new Color(255,255,234));
+        add(scrollPane);
 
-        bMenu = new JButton("MENU");
+
+
+        bMenu = new Menu.MyButton("POWRÓT DO MENU");
         bMenu.addActionListener(this);
-        add(bMenu, BorderLayout.PAGE_END);
+        bMenu.setBounds(0,0,800,30);
+        bMenu.setFont(new Font("Verdana", Font.ITALIC, 15));
+        add(bMenu);
 
     }
 

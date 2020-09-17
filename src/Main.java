@@ -6,9 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
         window = new JFrame();
-        window.setSize(1300, 500);
+        window.setSize(800, 630);
         window.setTitle("MyLibrary");
-        window.setLocation(300, 300);
+        window.setLocation(550, 300);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         switchPanel(new Menu());

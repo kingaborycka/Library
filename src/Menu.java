@@ -1,43 +1,74 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
+import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class Menu extends JPanel implements ActionListener{
-    JButton bBooksList, bAddBook, bBorrowBook, bReturnBook, bEditBook;
+    static class MyButton extends JButton {
+        private Font MyFont = new Font("Verdana", Font.ITALIC, 30);
+        private Color BackgroundColor = new Color(255,255,234);
+        private Color hoverBackgroundColor = new Color(204, 204, 102);
+        private Color pressedBackgroundColor = new Color(204, 204, 153);
+
+        public MyButton(String text) {
+            super(text);
+            super.setContentAreaFilled(false);
+            super.setBackground(BackgroundColor);
+            super.setFont(MyFont);
+            super.setBorder(BorderFactory.createBevelBorder(0));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            if (getModel().isPressed()) {
+                g.setColor(pressedBackgroundColor);
+            } else if (getModel().isRollover()) {
+                g.setColor(hoverBackgroundColor);
+            } else {
+                g.setColor(getBackground());
+            }
+            g.fillRect(0, 0, getWidth(), getHeight());
+            super.paintComponent(g);
+        }
+
+    }
+
     public static ArticleDAO DataBase;
-
-
+    MyButton bBooksList, bAddBook, bBorrowBook, bReturnBook, bEditBook;
 
     public Menu() {
-        setBackground(new Color(150,150,150));
-        setLayout(new GridBagLayout());
+        setLayout(null);
 
         DataBase = new ArticleDAO();
         DataBase.getData();
 
-        bBooksList = new JButton("Lista książek");
-        add(bBooksList);
+        bBooksList = new MyButton("LISTA KSIĄŻEK");
+        bBooksList.setBounds(0,0,800,120);
         bBooksList.addActionListener(this);
+        add(bBooksList);
 
-        bAddBook = new JButton("Dodaj książkę");
-        add(bAddBook);
+        bAddBook = new MyButton("DODAJ KSIĄŻKĘ");
+        bAddBook.setBounds(0,120,800,120);
         bAddBook.addActionListener(this);
+        add(bAddBook);
 
-        bBorrowBook = new JButton("Wypożycz książkę");
-        add(bBorrowBook);
+        bBorrowBook = new MyButton("WYPOŻYCZ KSIĄŻKĘ");
+        bBorrowBook.setBounds(0,240,800,120);
         bBorrowBook.addActionListener(this);
+        add(bBorrowBook);
 
-        bReturnBook = new JButton("Zwróć książkę");
-        add(bReturnBook);
+        bReturnBook = new MyButton("ZWRÓĆ KSIĄŻKĘ");
+        bReturnBook.setBounds(0,360,800,120);
         bReturnBook.addActionListener(this);
+        add(bReturnBook);
 
-        bEditBook = new JButton("Edytuj książkę");
-        add(bEditBook);
+        bEditBook = new MyButton("EDYTUJ KSIĄŻKĘ");
+        bEditBook.setBounds(0,480,800,120);
         bEditBook.addActionListener(this);
+        add(bEditBook);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -56,4 +87,6 @@ public class Menu extends JPanel implements ActionListener{
             Main.switchPanel(new BookId("e","edytowana"));
         }
     }
+
+
 }
