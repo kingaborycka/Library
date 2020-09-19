@@ -12,8 +12,10 @@ public class BooksListFrame extends JPanel implements ActionListener {
     Menu.MyButton bMenu;
 
     public BooksListFrame() {
-        setLayout(null);
-        setBackground(new Color(255,255,234));
+        setLayout(new GridLayout(1,1));
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(new Color(255,255,234));
 
         JTable BooksTable = new JTable(0,7){
             @Override
@@ -24,26 +26,32 @@ public class BooksListFrame extends JPanel implements ActionListener {
                 tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
                 return component;
             }
+            public boolean editCellAt(int row, int column, java.util.EventObject e) {
+                return false;
+            }
         };
+
         BooksTable.setModel(new DefaultTableModel(Main.DataBase.Library.getShortListData(), Main.DataBase.Library.getShortListColumns()));
         BooksTable.setFont(new Font("Verdana", Font.ITALIC,16));
-        BooksTable.setRowHeight(34);
+        BooksTable.setRowHeight(34*Main.skala);
         BooksTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        BooksTable.setBounds(0,0,800,5250);
+        BooksTable.setBounds(0,0,getWidth(),getHeight());
         BooksTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        BooksTable.setSelectionBackground(new Color(204, 204, 102));
 
         JScrollPane scrollPane = new JScrollPane(BooksTable);
-        scrollPane.setBounds(0,30,800,570);
+        scrollPane.setBounds(0,30*Main.skala,getWidth(),getHeight());
         scrollPane.setBackground(new Color(255,255,234));
-        add(scrollPane);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
 
 
         bMenu = new Menu.MyButton("POWRÓT DO MENU");
         bMenu.addActionListener(this);
-        bMenu.setBounds(0,0,800,30);
+        bMenu.setBounds(0,0,getWidth(),30*Main.skala);
         bMenu.setFont(new Font("Verdana", Font.ITALIC, 15));
-        add(bMenu);
+        panel.add(bMenu, BorderLayout.NORTH);
+        add(panel);
 
     }
 
@@ -51,7 +59,7 @@ public class BooksListFrame extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == bMenu) {
-            Main.switchPanel(new Menu());
+            Main.switchPanel(new Menu(getWidth(),getHeight()));
         }
     }
 }

@@ -1,17 +1,27 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     private static JFrame window;
     public static ArticleDAO DataBase;
+    public static int skala;
+    public static Dimension d;
+    public static int windowWidth;
+    public static int windowHeight;
 
     public static void main(String[] args) {
+        d = Toolkit.getDefaultToolkit().getScreenSize();
+        skala = d.width/1024;
+
         window = new JFrame();
-        window.setSize(800, 630);
+        window.setSize(skala*800, skala*630);
         window.setTitle("MyLibrary");
-        window.setLocation(550, 300);
+        window.setLocation(550, 200);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        switchPanel(new Menu());
+        windowWidth = window.getWidth();
+        windowHeight = window.getHeight();
+        switchPanel(new Menu(windowWidth,windowHeight));
 
     }
 
