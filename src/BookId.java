@@ -31,7 +31,9 @@ public class BookId extends JPanel implements ActionListener {
         JPanel fieldPanel = new JPanel();
         fieldPanel.setBackground(new Color(255,255,234));
         fId = new JTextField(null,10);
-        fId.setFont(new Font("Verdana", Font.ITALIC, 43));
+        fId.setFont(new Font("Verdana", Font.ITALIC, 35));
+        fId.setPreferredSize(new Dimension(300,70));
+        fId.setHorizontalAlignment(JTextField.CENTER);
         fieldPanel.add(fId);
         add(fieldPanel);
 

@@ -70,18 +70,27 @@ public class AddEditBook extends JPanel implements ActionListener{
 
         tytulField = new JTextField(tytul, 10);
         tytulField.setBounds(75,100,300,50);
+        tytulField.setFont(new Font("Verdana", Font.ITALIC, 16));
+        tytulField.setHorizontalAlignment(JTextField.CENTER);
+
         left.add(tytulField);
 
         nazwiskoAutoraField = new JTextField(nazwisko, 10);
         nazwiskoAutoraField.setBounds(75,170,300,50);
+        nazwiskoAutoraField.setFont(new Font("Verdana", Font.ITALIC, 16));
+        nazwiskoAutoraField.setHorizontalAlignment(JTextField.CENTER);
         left.add(nazwiskoAutoraField);
 
         imionaAutoraField = new JTextField(imiona, 10);
         imionaAutoraField.setBounds(75,240,300,50);
+        imionaAutoraField.setFont(new Font("Verdana", Font.ITALIC, 16));
+        imionaAutoraField.setHorizontalAlignment(JTextField.CENTER);
         left.add(imionaAutoraField);
 
         rokField = new JTextField(rok, 10);
         rokField.setBounds(75,310,300,50);
+        rokField.setFont(new Font("Verdana", Font.ITALIC, 16));
+        rokField.setHorizontalAlignment(JTextField.CENTER);
         left.add(rokField);
 
         bAddEdit = new JButton(button);
@@ -171,10 +180,8 @@ public class AddEditBook extends JPanel implements ActionListener{
         try {
             ArticleDAO DataBase = new ArticleDAO();
             DataBase.connect();
+            String kategorie = "",message;
 
-            setBackground(new Color(100, 130, 100));
-
-            String kategorie = "";
             for (JCheckBox checkBox:checkBoxes) {
                 if (checkBox.isSelected())
                     if(kategorie == "")
@@ -183,6 +190,7 @@ public class AddEditBook extends JPanel implements ActionListener{
                         kategorie = kategorie + "," + checkBox.getText();
             }
             if (action == "add"){
+                message = "dodana";
                 insertSQL = " INSERT INTO Books (tytul, nazwiskoAutora, imionaAutora, rok, kategorie, czyWypozyczona, liczbaWypozyczen) "
                         + "VALUES ("
                         + "'"+ tytulField.getText() + "',"
@@ -192,6 +200,7 @@ public class AddEditBook extends JPanel implements ActionListener{
                         + "'"+kategorie + "',"
                         + "'"+ 0 +"'"+ ",'" + 0 + "');";
             }else{
+                message = "edytowana";
                 insertSQL = " UPDATE Books SET "
                         + "tytul = '"+ tytulField.getText() + "',"
                         + "nazwiskoAutora = '"+ nazwiskoAutoraField.getText() + "',"
@@ -200,9 +209,7 @@ public class AddEditBook extends JPanel implements ActionListener{
                         + "kategorie = '"+kategorie + "'"
                         + "WHERE id = "+id +";";
 
-            }//..................................................................edytowanie 
-
-            System.out.println(insertSQL);
+            }
 
             PreparedStatement prepsInsertProduct = DataBase.myConn.prepareStatement(insertSQL, DataBase.myStmt.RETURN_GENERATED_KEYS);
 
@@ -211,6 +218,8 @@ public class AddEditBook extends JPanel implements ActionListener{
             DataBase.myStmt.close();
             DataBase.myConn.close();
             System.out.println(" Polecenie " + insertSQL + " wykonane.");
+            JOptionPane.showMessageDialog(null, "Książka została "+message+".");
+            Main.switchPanel(new Menu(getWidth(),getHeight()));
 
         } catch (Exception e) {
             System.out.println(" Nie mogę dodać danych.\n " + e.getMessage());

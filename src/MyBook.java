@@ -100,28 +100,18 @@ public class MyBook {
         } else if (action == "r") {
             borrowReturnMe("false");
         } else {
-            editMe();//edycja
+            Main.switchPanel(new AddEditBook(this));
         }
-    }
-    public void editMe(){
-        Main.switchPanel(new AddEditBook(this));
-        Connection conn = Main.DataBase.myConn;
-        PreparedStatement preparedStatement = null;
-//        try {
-//            preparedStatement = conn.prepareStatement("UPDATE Books SET czyWypozyczona=" + bool + " WHERE id=" + this.id);
-//            preparedStatement.executeUpdate();
-//            Main.DataBase.getData();
-//            alert(bool,"admission");
-//
-//
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
     }
 
     public void borrowReturnMe(String bool){
+        JPanel panel;
+        if(bool=="true") panel = new BookId("b","wypożyczona");
+        else panel = new BookId("r","zwrócona");
+
         if(bool == String.valueOf(this.czyWypozyczona)){
             alert(bool,"rejection");
+            Main.switchPanel(panel);
         }else {
             Connection conn = Main.DataBase.myConn;
             PreparedStatement preparedStatement = null;
@@ -130,6 +120,7 @@ public class MyBook {
                 preparedStatement.executeUpdate();
                 Main.DataBase.getData();
                 alert(bool,"admission");
+                Main.switchPanel(panel);
 
 
             } catch (SQLException throwables) {
