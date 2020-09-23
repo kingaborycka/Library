@@ -42,6 +42,7 @@ Wyświetlanie listy książek w formacie skróconym składającym się z identyf
 tytułu, inicjałów autora i jego nazwiska oraz informacji, czy książka jest obecnie
 wypożyczona (tak/nie), np.:
 123 H.A. Sienkiewicz ,,W pustyni i w puszczy’’ tak
+
 Wyświetlanie listy książek w formacie pełnym zawierającym wszystkie dane o książ-
 kach ;
 

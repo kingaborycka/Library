@@ -35,18 +35,18 @@ public class MyLibrary {
         return data;
     }
 
-    public void getBook(int id,String action){
+    public MyBook getBook(int id,String action){
         Boolean alert=true;
         for (MyBook book : listaKsiazek) {
             if (book.getId() == id) {
-                book.getMe(action);
                 alert = false;
-                break;
+                return book;
             }
         }
         if(alert==true)
             JOptionPane.showMessageDialog(null, "Nie ma takiego identyfikatora.");
-    }
+        return null;
+    };
 
 }
 

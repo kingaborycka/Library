@@ -26,7 +26,7 @@ public class Menu extends JPanel implements ActionListener{
                 g.setColor(pressedBackgroundColor);
             } else if (getModel().isRollover()) {
                 g.setColor(hoverBackgroundColor);
-            } else {
+            }else {
                 g.setColor(getBackground());
             }
             g.fillRect(0, 0, getWidth(), getHeight());
@@ -84,7 +84,7 @@ public class Menu extends JPanel implements ActionListener{
             Main.switchPanel(new BooksListFrame());
 
         }else if (source == bAddBook) {
-            Main.switchPanel(new AddBook());
+            Main.switchPanel(new AddEditBook());
 
         }else if (source == bReturnBook) {
             Main.switchPanel(new BookId("r","zwrócona"));

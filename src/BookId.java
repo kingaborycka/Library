@@ -7,6 +7,8 @@ public class BookId extends JPanel implements ActionListener {
     JButton bMenu, bOk;
     JTextField fId;
     String text, action;
+    JLabel BookInf1,BookInf2;
+    Boolean next = false;
 
     public BookId(String action,String text){
         this.text = text;
@@ -34,35 +36,64 @@ public class BookId extends JPanel implements ActionListener {
         add(fieldPanel);
 
         JPanel bookInfPanel = new JPanel();
+        bookInfPanel.setLayout(new GridLayout(2,1,0,0));
         bookInfPanel.setBackground(new Color(255,255,234));
 
+        BookInf1 = new JLabel("",JLabel.CENTER);
+        BookInf1.setFont(new Font("Verdana", Font.ITALIC, 20));
+        bookInfPanel.add(BookInf1);
+        BookInf2 = new JLabel("",JLabel.CENTER);
+        BookInf2.setFont(new Font("Verdana", Font.ITALIC, 18));
+        bookInfPanel.add(BookInf2);
         add(bookInfPanel);
 
         JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,30));
         bottomPanel.setBackground(new Color(255,255,234));
+
+        bMenu = new JButton("MENU");
+        bMenu.addActionListener(this);
+        bMenu.setPreferredSize(new Dimension(180,40));
+        bottomPanel.add(bMenu);
 
         bOk = new JButton("OK");
         bOk.addActionListener(this);
         bOk.setPreferredSize(new Dimension(180,40));
         bottomPanel.add(bOk);
 
-        bMenu = new JButton("MENU");
-        bMenu.addActionListener(this);
-        bMenu.setPreferredSize(new Dimension(180,40));
-        bottomPanel.add(bMenu);
         add(bottomPanel);
 
         this.setVisible(true);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        MyBook book;
         Object source = e.getSource();
         if (source == bMenu)
             Main.switchPanel(new Menu(getWidth(),getHeight()));
         else if (source == bOk){
-            Main.DataBase.Library.getBook(Integer.parseInt(fId.getText()), action);
-            setBackground(new Color(100, 130, 100));
+            book = Main.DataBase.Library.getBook(Integer.parseInt(fId.getText()), action);
+            if(next == true) {
+              book.getMe(action);
+            }else{
+                if (book != null)
+                    showBookInf(book);
+            }
         }
 
     }
+
+    public void showBookInf(MyBook book){
+      BookInf1.setText(
+              book.getImionaAutora()
+              +" "+book.getNazwiskoAutora()
+              +" "+book.getTytul()
+      );
+
+      BookInf2.setText(
+              book.getRok()
+              +" "+book.getKategorie()
+      );
+      next = true;
+    };
 }

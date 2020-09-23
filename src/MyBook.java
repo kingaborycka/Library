@@ -104,6 +104,7 @@ public class MyBook {
         }
     }
     public void editMe(){
+        Main.switchPanel(new AddEditBook(this));
         Connection conn = Main.DataBase.myConn;
         PreparedStatement preparedStatement = null;
 //        try {
