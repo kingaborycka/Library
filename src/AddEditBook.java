@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +21,7 @@ public class AddEditBook extends JPanel implements ActionListener{
         id = book.getId();
         action = "edit";
         tytul = book.getTytul().replace('"',' ').strip();
-        nazwisko = book.getNazwiskoAutora();
+        nazwisko =book.getNazwiskoAutora();
         imiona = book.getImionaAutora();
         rok = String.valueOf(book.getRok());
         kategorie = book.getKategorie().split(",");
@@ -31,9 +32,9 @@ public class AddEditBook extends JPanel implements ActionListener{
     public AddEditBook() {
         action = "add";
         tytul = "Tytuł";
-        nazwisko = "Nazwisko";
-        imiona = "Imiona";
-        rok = "Rok";
+        nazwisko = "Nazwisko autora";
+        imiona = "Imiona autora";
+        rok ="Rok";
         button = "Dodaj książkę";
         kategorie = null;
 
@@ -52,6 +53,7 @@ public class AddEditBook extends JPanel implements ActionListener{
         }
         return false;
     }
+
     public void AddEditLayout(){
         this.setLayout(new GridLayout(1,2,50,20));
         this.setBackground(new Color(255,255,234));
@@ -67,30 +69,32 @@ public class AddEditBook extends JPanel implements ActionListener{
         right.setBackground(new Color(255,255,234));
         this.add(right);
 
-
-        tytulField = new JTextField(tytul, 10);
+        tytulField = new JTextField(tytul,10);
         tytulField.setBounds(75,100,300,50);
         tytulField.setFont(new Font("Verdana", Font.ITALIC, 16));
         tytulField.setHorizontalAlignment(JTextField.CENTER);
-
+        tytulField.setBorder(new LineBorder(new Color(204, 204, 102), 3));
         left.add(tytulField);
 
-        nazwiskoAutoraField = new JTextField(nazwisko, 10);
+        nazwiskoAutoraField = new JTextField(nazwisko,10);
         nazwiskoAutoraField.setBounds(75,170,300,50);
         nazwiskoAutoraField.setFont(new Font("Verdana", Font.ITALIC, 16));
         nazwiskoAutoraField.setHorizontalAlignment(JTextField.CENTER);
+        nazwiskoAutoraField.setBorder(new LineBorder(new Color(204, 204, 102), 3));
         left.add(nazwiskoAutoraField);
 
-        imionaAutoraField = new JTextField(imiona, 10);
+        imionaAutoraField = new JTextField(imiona,10);
         imionaAutoraField.setBounds(75,240,300,50);
         imionaAutoraField.setFont(new Font("Verdana", Font.ITALIC, 16));
         imionaAutoraField.setHorizontalAlignment(JTextField.CENTER);
+        imionaAutoraField.setBorder(new LineBorder(new Color(204, 204, 102), 3));
         left.add(imionaAutoraField);
 
-        rokField = new JTextField(rok, 10);
+        rokField = new JTextField(rok,10);
         rokField.setBounds(75,310,300,50);
         rokField.setFont(new Font("Verdana", Font.ITALIC, 16));
         rokField.setHorizontalAlignment(JTextField.CENTER);
+        rokField.setBorder(new LineBorder(new Color(204, 204, 102), 3));
         left.add(rokField);
 
         bAddEdit = new JButton(button);

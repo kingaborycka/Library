@@ -6,16 +6,45 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.Flow;
 
 
 public class BooksListFrame extends JPanel implements ActionListener {
-    Menu.MyButton bMenu;
+    Menu.MyButton bMenu,bLongList;
+    JTextField fSearch;
 
-    public BooksListFrame() {
+    public BooksListFrame(String list) {
         setLayout(new GridLayout(1,1));
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setBackground(new Color(255,255,234));
+
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new GridLayout(1,2,0,10));
+        topPanel.setPreferredSize(new Dimension(Main.windowWidth,Main.windowHeight/15));
+
+        JPanel leftPanel = new JPanel();
+        topPanel.add(leftPanel);
+        leftPanel.setLayout(new BorderLayout(10,10));
+        JPanel buttonsPanel = new JPanel(new GridLayout(1,2,0,0));
+
+        bMenu = new Menu.MyButton("MENU");
+        bMenu.addActionListener(this);
+        bMenu.setFont(new Font("Verdana", Font.PLAIN, 15));
+        buttonsPanel.add(bMenu);
+
+        bLongList = new Menu.MyButton("WIĘCEJ INFORMACJI");
+        bLongList.setFont(new Font("Verdana", Font.PLAIN, 15));
+        bLongList.setBounds(0,10,leftPanel.getWidth()/2,leftPanel.getHeight()/2);
+        bLongList.addActionListener(this);
+        buttonsPanel.add(bLongList);
+
+        fSearch = new JTextField("WYSZUKAJ");
+        fSearch.setHorizontalAlignment(JTextField.RIGHT);
+
+
+        leftPanel.add(buttonsPanel);
+        topPanel.add(fSearch);
+        panel.add(topPanel, BorderLayout.NORTH);
 
         JTable BooksTable = new JTable(0,7){
             @Override
@@ -31,7 +60,10 @@ public class BooksListFrame extends JPanel implements ActionListener {
             }
         };
 
-        BooksTable.setModel(new DefaultTableModel(Main.DataBase.Library.getShortListData(), Main.DataBase.Library.getShortListColumns()));
+        if(list == "short")BooksTable.setModel(new DefaultTableModel(Main.DataBase.Library.getShortListData(),Main.DataBase.Library.getShortListColumns()));
+        else BooksTable.setModel(new DefaultTableModel(Main.DataBase.Library.getLongListData(),Main.DataBase.Library.getLongListColumns()));
+
+
         BooksTable.setFont(new Font("Verdana", Font.ITALIC,16));
         BooksTable.setRowHeight(34*Main.skala);
         BooksTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -41,16 +73,7 @@ public class BooksListFrame extends JPanel implements ActionListener {
 
         JScrollPane scrollPane = new JScrollPane(BooksTable);
         scrollPane.setBounds(0,30*Main.skala,getWidth(),getHeight());
-        scrollPane.setBackground(new Color(255,255,234));
         panel.add(scrollPane, BorderLayout.CENTER);
-
-
-
-        bMenu = new Menu.MyButton("POWRÓT DO MENU");
-        bMenu.addActionListener(this);
-        bMenu.setBounds(0,0,getWidth(),30*Main.skala);
-        bMenu.setFont(new Font("Verdana", Font.ITALIC, 15));
-        panel.add(bMenu, BorderLayout.NORTH);
         add(panel);
 
     }
@@ -60,6 +83,8 @@ public class BooksListFrame extends JPanel implements ActionListener {
         Object source = e.getSource();
         if (source == bMenu) {
             Main.switchPanel(new Menu(getWidth(),getHeight()));
+        }else if (source == bLongList) {
+            Main.switchPanel(new BooksListFrame("long"));
         }
     }
 }

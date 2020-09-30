@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,7 @@ public class BookId extends JPanel implements ActionListener {
         fId.setFont(new Font("Verdana", Font.ITALIC, 35));
         fId.setPreferredSize(new Dimension(300,70));
         fId.setHorizontalAlignment(JTextField.CENTER);
+        fId.setBorder(new LineBorder(new Color(204, 204, 102), 3));
         fieldPanel.add(fId);
         add(fieldPanel);
 

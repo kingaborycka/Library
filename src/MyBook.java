@@ -116,7 +116,13 @@ public class MyBook {
             Connection conn = Main.DataBase.myConn;
             PreparedStatement preparedStatement = null;
             try {
-                preparedStatement = conn.prepareStatement("UPDATE Books SET czyWypozyczona=" + bool + " WHERE id=" + this.id);
+                if(bool=="false") this.liczbaWypozyczen +=1;
+                preparedStatement = conn.prepareStatement(
+                        "UPDATE Books " +
+                        "SET czyWypozyczona=" + bool +
+                        ",liczbaWypozyczen="+this.liczbaWypozyczen +
+                        " WHERE id=" + this.id);
+
                 preparedStatement.executeUpdate();
                 Main.DataBase.getData();
                 alert(bool,"admission");

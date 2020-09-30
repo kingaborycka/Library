@@ -81,7 +81,7 @@ public class Menu extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == bBooksList) {
-            Main.switchPanel(new BooksListFrame());
+            Main.switchPanel(new BooksListFrame("short"));
 
         }else if (source == bAddBook) {
             Main.switchPanel(new AddEditBook());
