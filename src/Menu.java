@@ -5,19 +5,24 @@ import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
 import java.awt.event.*;
 
+
 public class Menu extends JPanel implements ActionListener{
+
+
     static class MyButton extends JButton {
-        private Font MyFont = new Font("Verdana", Font.ITALIC, 30);
+        private Font MyFont = new Font("Verdana", Font.ITALIC, 20);
         private Color BackgroundColor = new Color(255,255,234);
-        private Color hoverBackgroundColor = new Color(204, 204, 102);
+        private Color hoverBackgroundColor = new Color(197, 204, 140);
         private Color pressedBackgroundColor = new Color(204, 204, 153);
 
         public MyButton(String text) {
             super(text);
             super.setContentAreaFilled(false);
             super.setBackground(BackgroundColor);
+            super.setBorderPainted(false);
             super.setFont(MyFont);
             super.setBorder(BorderFactory.createBevelBorder(0));
+
         }
 
         @Override
@@ -81,7 +86,7 @@ public class Menu extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source == bBooksList) {
-            Main.switchPanel(new BooksListFrame("short"));
+            Main.switchPanel(new BooksListFrame("short","Więcej informacji"));
 
         }else if (source == bAddBook) {
             Main.switchPanel(new AddEditBook());

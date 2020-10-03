@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-    private static JFrame window;
+    public static JFrame window;
     public static ArticleDAO DataBase;
     public static int skala;
     public static Dimension d;

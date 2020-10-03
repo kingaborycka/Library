@@ -73,6 +73,7 @@ Wyszukiwanie książek na podstawie wybranego kryterium:
 Dla dwóch pierwszych wyszukiwanie powinno uwzględniać częściowe dopasowanie,
 gdy użytkownik poda jedynie fragment nazwiska autora lub tytułu. Dopasowanie
 po kategorii powinno być dokładne.
+
 Funkcje dodatkowe z osobnym podmenu:
 
 (a) Wyświetlanie liczby wszystkich książek, liczby obecnie wypożyczonych oraz
@@ -91,21 +92,8 @@ niż jeden egzemplarz tej samej książki.
 (d) Wyświetlanie 5 najbardziej poczytnych autorów – liczba wypożyczeń książek
 autora powinna być > 0. Dla każdego autora podać tytuł jego najbardziej
 popularnej książki (kryteria takie jak w poprzednim punkcie).
-*Import danych z pliku tekstowego – umożliwia dodanie do biblioteki nowych egzemplarzyksiążek na podstawie opisów (po jednym w wierszu) w pliku tekstowym
-w formacie, jak w przykładzie:
-Henryk Adam, Sienkiewicz; Quo vadis; 1995; powieść historyczna, literatura
-piękna
+
 *Wyświetlanie listy książek posortowanej wg wybranego kryterium spośród: nazwiska
 autora, roku wydania, liczby wypożyczeń, tytułu.
-2Dostęp do poszczególnych funkcji programu powinien być realizowany przez menu
-wyświetlane po uruchomieniu programu oraz po każdorazowym zakończeniu wykonywania
-wybranej wcześniej funkcji.
 
-Każda z funkcjonalności programu powinna być implementowana przez odrębną metodę
-z klas Ksiazka oraz Biblioteka. Dane przechowywane powinny być w pliku o nazwie
-„biblioteka.dat” odczytywanym automatycznie po uruchomieniu programu. Jeżeli plik z
-danymi nie istnieje, to powinien zostać utworzony automatycznie (pusty). Po każdej modyfikacji
-danych należy je zapisać do wspomnianego pliku, tak aby były widoczne po
-ponownym uruchomieniu programu.
-Wprowadzane przez użytkownika dane powinny być weryfikowane i jeżeli będą błędne,
-to program powinien prosić o ich ponowne podanie.
+

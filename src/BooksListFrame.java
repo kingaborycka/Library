@@ -1,50 +1,77 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.concurrent.Flow;
+import java.awt.event.*;
+import java.util.EventObject;
 
 
-public class BooksListFrame extends JPanel implements ActionListener {
-    Menu.MyButton bMenu,bLongList;
-    JTextField fSearch;
+public class BooksListFrame extends JPanel implements ActionListener{
+    JMenuItem mOther1,mOther2,mOther3,mOther4,mOther5_1,mOther5_2,mOther5_3,mOther5_4,bMenu, bList;
+    JMenu bOther,mOther5,bSearch;
+    String list, button;
 
-    public BooksListFrame(String list) {
+    public BooksListFrame( String list,String button) {
+        this.list = list;
+        this.button = button;
+
+        UIManager.put("Menu.selectionBackground", new Color(204, 204, 153));
+        UIManager.put("Menu.font", new Font("Verdana", Font.PLAIN, 14));
+        UIManager.put("Menu.background", new Color(255,255,234));
+        UIManager.put("MenuItem.selectionBackground", new Color(204, 204, 153));
+        UIManager.put("MenuItem.font", new Font("Verdana", Font.PLAIN, 14));
+        UIManager.put("MenuItem.background", new Color(255,255,234));
+
+
         setLayout(new GridLayout(1,1));
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new GridLayout(1,2,0,10));
-        topPanel.setPreferredSize(new Dimension(Main.windowWidth,Main.windowHeight/15));
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(new Color(255,255,234));
 
-        JPanel leftPanel = new JPanel();
-        topPanel.add(leftPanel);
-        leftPanel.setLayout(new BorderLayout(10,10));
-        JPanel buttonsPanel = new JPanel(new GridLayout(1,2,0,0));
 
-        bMenu = new Menu.MyButton("MENU");
+        bMenu = new JMenuItem("Menu");
         bMenu.addActionListener(this);
-        bMenu.setFont(new Font("Verdana", Font.PLAIN, 15));
-        buttonsPanel.add(bMenu);
+        menuBar.add(bMenu);
+//
+        bList = new JMenuItem(button);
+        bList.addActionListener(this);
+        menuBar.add(bList);
+//
+        bSearch = new JMenu("Wyszukaj");
+        bSearch.setMnemonic(KeyEvent.VK_W);
 
-        bLongList = new Menu.MyButton("WIĘCEJ INFORMACJI");
-        bLongList.setFont(new Font("Verdana", Font.PLAIN, 15));
-        bLongList.setBounds(0,10,leftPanel.getWidth()/2,leftPanel.getHeight()/2);
-        bLongList.addActionListener(this);
-        buttonsPanel.add(bLongList);
+        menuBar.add(bSearch);
 
-        fSearch = new JTextField("WYSZUKAJ");
-        fSearch.setHorizontalAlignment(JTextField.RIGHT);
+        bOther = new JMenu("Inne");
+        bOther.setMnemonic(KeyEvent.VK_I);
 
+        mOther1 = new JMenuItem("Obecny stan biblioteki");
+        mOther1.addActionListener(this);
+        bOther.add(mOther1);
+        mOther1.setPreferredSize(bOther.getPreferredSize());
+        mOther2 = new JMenuItem("Najczęściej wypożyczane egzemplarze");
+        bOther.add(mOther2);
+        mOther3 = new JMenuItem("Najbardziej poczytne książki");
+        bOther.add(mOther3);
+        mOther4 = new JMenuItem("Najbardziej poczytni autorzy");
+        bOther.add(mOther4);
+        mOther5 = new JMenu("Sortuj wg");
 
-        leftPanel.add(buttonsPanel);
-        topPanel.add(fSearch);
-        panel.add(topPanel, BorderLayout.NORTH);
+        mOther5_1 = new JMenuItem("Nazwisko autora");
+        mOther5_2 = new JMenuItem("Rok wydania");
+        mOther5_3 = new JMenuItem("Liczba wypożyczeń");
+        mOther5_4 = new JMenuItem("Tytuł");
+
+        mOther5.add(mOther5_1);
+        mOther5.add(mOther5_2);
+        mOther5.add(mOther5_3);
+        mOther5.add(mOther5_4);
+        bOther.add(mOther5);
+        menuBar.add(bOther);
+        panel.add(menuBar, BorderLayout.NORTH);
 
         JTable BooksTable = new JTable(0,7){
             @Override
@@ -55,7 +82,7 @@ public class BooksListFrame extends JPanel implements ActionListener {
                 tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
                 return component;
             }
-            public boolean editCellAt(int row, int column, java.util.EventObject e) {
+            public boolean editCellAt(int row, int column, EventObject e) {
                 return false;
             }
         };
@@ -74,17 +101,21 @@ public class BooksListFrame extends JPanel implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(BooksTable);
         scrollPane.setBounds(0,30*Main.skala,getWidth(),getHeight());
         panel.add(scrollPane, BorderLayout.CENTER);
+
         add(panel);
+        setVisible(true);
 
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-        if (source == bMenu) {
+        if (e.getSource()== bList){
+            if(list == "long") Main.switchPanel(new BooksListFrame("short","Więcej informacji"));
+            else Main.switchPanel(new BooksListFrame("long","Mniej informacji"));
+        }else if (e.getSource()==bMenu)
             Main.switchPanel(new Menu(getWidth(),getHeight()));
-        }else if (source == bLongList) {
-            Main.switchPanel(new BooksListFrame("long"));
-        }
+        else if (e.getSource()==mOther1)
+            Main.switchPanel(new Information(list));
     }
 }
