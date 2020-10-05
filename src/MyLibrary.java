@@ -5,7 +5,28 @@ import java.util.Vector;
 
 public class MyLibrary {
     public List<MyBook> listaKsiazek = new ArrayList<MyBook>();
-    public int ileKsiazek = listaKsiazek.size();
+
+    public int getNumberOfBooks(){
+        return listaKsiazek.size();
+    }
+
+    public int getNumberOfBorrowed() {
+        int number = 0;
+        for (MyBook book:this.listaKsiazek){
+            number += book.getLiczbaWypozyczen();
+        }
+        return number;
+    }
+
+    public int getBorrowed() {
+        int number = 0;
+
+        for (MyBook book:this.listaKsiazek){
+            if(book.getCzyWypozyczona()== "Tak")
+                number += 1;
+        }
+        return number;
+    }
 
     public String getData(String list){
         if(list == "short"){
