@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MyBook {
+public class MyBook implements Comparable<MyBook> {
     private int id, rok, liczbaWypozyczen;
     private boolean czyWypozyczona;
     private String imionaAutora, nazwiskoAutora, tytul, inicjaly;
@@ -135,4 +135,10 @@ public class MyBook {
         }
     }
 
+    @Override
+    public int compareTo(MyBook book) {
+        if(this.getLiczbaWypozyczen() == book.getLiczbaWypozyczen()) return 0;
+        else if(this.getLiczbaWypozyczen() > book.getLiczbaWypozyczen()) return -1;
+        else return 1;
+    }
 }

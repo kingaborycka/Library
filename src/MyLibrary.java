@@ -1,7 +1,10 @@
+import com.mysql.cj.x.protobuf.MysqlxCrud;
+
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.logging.Logger.global;
 
 public class MyLibrary {
     public List<MyBook> listaKsiazek = new ArrayList<MyBook>();
@@ -47,6 +50,21 @@ public class MyLibrary {
 
         return columns;
     }
+    public Vector<Vector> getLongListData(List<MyBook> list) {
+        Vector<Vector> data = new Vector<>();
+        for (MyBook book : list) {
+            Vector<String> row = new Vector<String>();
+            row.add(String.valueOf(book.getId()));
+            row.add(book.getImionaAutora() + " " + book.getNazwiskoAutora());
+            row.add(book.getTytul());
+            row.add(String.valueOf(book.getRok()));
+            row.add(book.getKategorie());
+            row.add(book.getCzyWypozyczona());
+            row.add(String.valueOf(book.getLiczbaWypozyczen()));
+            data.addElement(row);
+        }
+        return data;
+    }
     public Vector<Vector> getLongListData() {
         Vector<Vector> data = new Vector<>();
         for (MyBook book:this.listaKsiazek) {
@@ -74,7 +92,20 @@ public class MyLibrary {
 
         return columns;
     }
-
+    public Vector<Vector> getShortListData(List<MyBook> list) {
+        Vector<Vector> data = new Vector<>();
+        for (MyBook book:list) {
+            Vector<String> row = new Vector<String>();
+            row.add(String.valueOf(book.getId()));
+            row.add(book.getInicjaly()+book.getNazwiskoAutora());
+            row.add(book.getTytul());
+            row.add(String.valueOf(book.getRok()));
+            row.add(book.getKategorie());
+            row.add(book.getCzyWypozyczona());
+            data.addElement(row);
+        }
+        return data;
+    }
     public Vector<Vector> getShortListData() {
         Vector<Vector> data = new Vector<>();
         for (MyBook book:this.listaKsiazek) {
@@ -103,5 +134,43 @@ public class MyLibrary {
         return null;
     };
 
+    public List<MyBook> mostPopularBooks(){
+        List<MyBook> finalList = new ArrayList<MyBook>();
+        List<MyBook> list = this.listaKsiazek;
+        Collections.sort(list);
+
+        int counter = 0;
+        int lastNumber;
+        while(list.size()>4 && counter!=5){
+            lastNumber = list.get(counter).getLiczbaWypozyczen();
+            if(lastNumber==0){
+                counter++;
+                break;
+            }
+            finalList.add(list.get(counter));
+            counter++;
+        }
+        lastNumber = list.get(counter).getLiczbaWypozyczen();
+        while (list.get(counter).getLiczbaWypozyczen()==lastNumber && lastNumber!=0)
+            finalList.add(list.get(counter));
+
+        return finalList;
+    }
+    public List<MyBook> mostPopularAutors(){
+        List<MyBook> autors = new ArrayList<>();
+//        for(MyBook book:this.listaKsiazek){
+//            String autor = book.getImionaAutora()+" "+book.getNazwiskoAutora();
+//            if(!autors.contains(autor)){
+//
+//
+//            }
+//        }
+        return autors;
+    }
+    public List<MyBook> mostPopularBooksOfCategory(){
+        List<MyBook> list = new ArrayList<>();
+
+        return list;
+    }
 }
 

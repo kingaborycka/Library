@@ -53,10 +53,13 @@ public class BooksListFrame extends JPanel implements ActionListener{
         bOther.add(mOther1);
         mOther1.setPreferredSize(bOther.getPreferredSize());
         mOther2 = new JMenuItem("Najczęściej wypożyczane egzemplarze");
+        mOther2.addActionListener(this);
         bOther.add(mOther2);
         mOther3 = new JMenuItem("Najbardziej poczytne książki");
+        mOther3.addActionListener(this);
         bOther.add(mOther3);
         mOther4 = new JMenuItem("Najbardziej poczytni autorzy");
+        mOther4.addActionListener(this);
         bOther.add(mOther4);
         mOther5 = new JMenu("Sortuj wg");
 
@@ -93,9 +96,9 @@ public class BooksListFrame extends JPanel implements ActionListener{
 
         BooksTable.setFont(new Font("Verdana", Font.ITALIC,16));
         BooksTable.setRowHeight(34*Main.skala);
+        BooksTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         BooksTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         BooksTable.setBounds(0,0,getWidth(),getHeight());
-        BooksTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         BooksTable.setSelectionBackground(new Color(204, 204, 102));
 
         JScrollPane scrollPane = new JScrollPane(BooksTable);
@@ -116,6 +119,13 @@ public class BooksListFrame extends JPanel implements ActionListener{
         }else if (e.getSource()==bMenu)
             Main.switchPanel(new Menu(getWidth(),getHeight()));
         else if (e.getSource()==mOther1)
-            Main.switchPanel(new Information(list));
+            Main.switchPanel(new Information(list,"label","numbers"));
+        else if (e.getSource()==mOther2)
+            Main.switchPanel(new Information(list,"table","mostPopularBooks"));
+        else if (e.getSource()==mOther3)
+            Main.switchPanel(new Information(list,"table","mostPopularBooksOfCategory"));
+        else if (e.getSource()==mOther4)
+            Main.switchPanel(new Information(list,"label","mostPopularAutors"));
+
     }
 }
