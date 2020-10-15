@@ -188,12 +188,12 @@ public class AddEditBook extends JPanel implements ActionListener{
 
             for (JCheckBox checkBox:checkBoxes) {
                 if (checkBox.isSelected())
-                    if(kategorie == "")
+                    if(kategorie.equals(""))
                         kategorie = checkBox.getText();
                     else
                         kategorie = kategorie + "," + checkBox.getText();
             }
-            if (action == "add"){
+            if (action.equals("add")){
                 message = "dodana";
                 insertSQL = " INSERT INTO Books (tytul, nazwiskoAutora, imionaAutora, rok, kategorie, czyWypozyczona, liczbaWypozyczen) "
                         + "VALUES ("
