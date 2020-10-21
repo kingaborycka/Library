@@ -140,20 +140,7 @@ public class MyLibrary {
 
         return finalList;
     }
-    public HashMap<String,String[]> mostPopularAutors2(){
-        HashMap<String,String[]> autors = new HashMap<>();
-        for(MyBook book:this.listaKsiazek){
-            String autor = book.getImionaAutora() + " " + book.getNazwiskoAutora();
-            String[] hisBook = {book.getTytul(), String.valueOf(book.getLiczbaWypozyczen())};
-            if(!autors.containsKey(autor)) {
-                autors.put(autor,hisBook);
-            }else if(Integer.parseInt(autors.get(autor)[1])<book.getLiczbaWypozyczen()) {
-                autors.put(autor, hisBook);
-            }
-        }
-        //.........................SORTOWANIE.................................
-        return autors;
-    }
+
     public List<Map.Entry<String,MyBook>> mostPopularAutors(){
         Map<String,MyBook> autors = new HashMap<>();
         for(MyBook book:this.listaKsiazek){
