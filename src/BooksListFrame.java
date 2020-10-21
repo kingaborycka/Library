@@ -91,7 +91,7 @@ public class BooksListFrame extends JPanel implements ActionListener{
         };
 
         if(list == "short")BooksTable.setModel(new DefaultTableModel(Main.DataBase.Library.getShortListData(),Main.DataBase.Library.getShortListColumns()));
-        else BooksTable.setModel(new DefaultTableModel(Main.DataBase.Library.getLongListData(),Main.DataBase.Library.getLongListColumns()));
+        else BooksTable.setModel(new BooksTableModel(Main.DataBase.Library.listaKsiazek,Main.DataBase.Library.getLongListColumns()));
 
 
         BooksTable.setFont(new Font("Verdana", Font.ITALIC,16));
