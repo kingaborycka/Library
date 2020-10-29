@@ -84,20 +84,20 @@ public class BookId extends JPanel implements ActionListener {
                     showBookInf(book);
             }
         }
-
     }
 
     public void showBookInf(MyBook book){
-      BookInf1.setText(
+        BookInf1.setText(
               book.getImionaAutora()
               +" "+book.getNazwiskoAutora()
               +" "+book.getTytul()
-      );
+        );
 
-      BookInf2.setText(
+        BookInf2.setText(
               book.getRok()
               +" "+book.getKategorie()
-      );
-      next = true;
+        );
+
+        next = true;
     };
 }

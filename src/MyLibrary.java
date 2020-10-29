@@ -2,6 +2,8 @@ import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import javax.swing.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MyLibrary {
     public List<MyBook> listaKsiazek = new ArrayList<>();
@@ -29,80 +31,20 @@ public class MyLibrary {
         return number;
     }
 
-    public String getData(String list){
-        if(list.equals("short")){
-            return getShortListData()+", "+getShortListColumns();
-        }
-        return getLongListData()+", "+getLongListColumns();
-    }
-    public Vector<String> getLongListColumns() {
-
-        Vector<String> columns = new Vector<>();
-        columns.add("Id");
-        columns.add("Autor");
-        columns.add("Tytuł");
-        columns.add("Rok");
-        columns.add("Kategorie");
-        columns.add("Wypożyczona");
-        columns.add("Ilość wypożyczeń");
-
+//    public String getData(String list){
+//        if(list.equals("short")){
+//            return getShortListData()+", "+getShortListColumns();
+//        }
+//        return getLongListData()+", "+getLongListColumns();
+//    }
+    public String[] getLongListColumns() {
+        String[] columns = {"Id", "Autor", "Tytuł", "Rok", "Kategorie", "Wypożyczona","Ilość wypożyczeń"};
         return columns;
     }
-    
-    public Vector<Vector> getLongListData() {
-        Vector<Vector> data = new Vector<>();
-        for (MyBook book:this.listaKsiazek) {
-            Vector<String> row = new Vector<String>();
-            row.add(String.valueOf(book.getId()));
-            row.add(book.getImionaAutora()+" "+book.getNazwiskoAutora());
-            row.add(book.getTytul());
-            row.add(String.valueOf(book.getRok()));
-            row.add(book.getKategorie());
-            row.add(book.getCzyWypozyczona());
-            row.add(String.valueOf(book.getLiczbaWypozyczen()));
-            data.addElement(row);
-        }
-        return data;
-    }
-    public Vector<String> getShortListColumns() {
 
-        Vector<String> columns = new Vector<>();
-        columns.add("Id");
-        columns.add("Autor");
-        columns.add("Tytuł");
-        columns.add("Rok");
-        columns.add("Kategorie");
-        columns.add("Wypożyczona");
-
+    public String[] getShortListColumns() {
+        String[] columns = {"Id", "Autor", "Tytuł", "Rok", "Kategorie", "Wypożyczona"};
         return columns;
-    }
-    public Vector<Vector> getShortListData(List<MyBook> list) {
-        Vector<Vector> data = new Vector<>();
-        for (MyBook book:list) {
-            Vector<String> row = new Vector<String>();
-            row.add(String.valueOf(book.getId()));
-            row.add(book.getInicjaly()+book.getNazwiskoAutora());
-            row.add(book.getTytul());
-            row.add(String.valueOf(book.getRok()));
-            row.add(book.getKategorie());
-            row.add(book.getCzyWypozyczona());
-            data.addElement(row);
-        }
-        return data;
-    }
-    public Vector<Vector> getShortListData() {
-        Vector<Vector> data = new Vector<>();
-        for (MyBook book:this.listaKsiazek) {
-            Vector<String> row = new Vector<String>();
-            row.add(String.valueOf(book.getId()));
-            row.add(book.getInicjaly()+book.getNazwiskoAutora());
-            row.add(book.getTytul());
-            row.add(String.valueOf(book.getRok()));
-            row.add(book.getKategorie());
-            row.add(book.getCzyWypozyczona());
-            data.addElement(row);
-        }
-        return data;
     }
 
     public MyBook getBook(int id,String action){
@@ -163,12 +105,36 @@ public class MyLibrary {
 
         return entryList.subList(0,5);
     }
+    public List<MyBook> searcher(String pattern,String kategoria){
+        List<MyBook> finalList = new ArrayList<MyBook>();
+        int scenariusz;
 
+        if(kategoria == "nazwisko autora")
+            scenariusz = 1;
+        else if(kategoria == "kategorię")
+            scenariusz = 2;
+        else scenariusz = 3;
 
-    public List<MyBook> mostPopularBooksOfCategory(){
-        List<MyBook> list = new ArrayList<>();
+        Pattern compiledPattern = Pattern.compile(pattern.toLowerCase().strip());
 
-        return list;
+        for(MyBook book:this.listaKsiazek){
+            switch(scenariusz){
+                case 1:
+                    if(compiledPattern.matcher(book.getNazwiskoAutora().toLowerCase()).find()){
+                        finalList.add(book);
+                    }
+                case 2:
+                    if(compiledPattern.matcher(book.getKategorie()).find()){
+                        finalList.add(book);
+                    };
+                case 3:
+                    if(compiledPattern.matcher(book.getTytul().toLowerCase()).find()){
+                        finalList.add(book);
+                    }
+            }
+        }
+
+        return finalList;
     }
 }
 

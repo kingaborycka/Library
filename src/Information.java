@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -63,17 +64,19 @@ public class Information extends JPanel implements ActionListener {
 
         List<MyBook> listaKsiazek;
 
-        if (whichList == "mostPopularBooks") {
-            labelText = "Najczęściej wypożyczane egzemplarze:";
+        if (whichList == "mostPopularBooks")
+            labelText = "Najczęściej wypożyczane:";
             listaKsiazek = Main.DataBase.Library.mostPopularBooks();
-        } else {
-            labelText = "Najbardziej poczytne książki z każdej kategorii :";
-            listaKsiazek = Main.DataBase.Library.mostPopularBooksOfCategory();
 
+        tMostPopular.setModel(new BooksTableModel(listaKsiazek,Main.DataBase.Library.getShortListColumns(),list));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        for(int x = 0; x < tMostPopular.getColumnCount();x++){
+            tMostPopular.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
         }
 
-
-        tMostPopular.setModel(new DefaultTableModel(Main.DataBase.Library.getShortListData(listaKsiazek), Main.DataBase.Library.getShortListColumns()));
 
         //.........................................................................................................................
 
@@ -89,12 +92,12 @@ public class Information extends JPanel implements ActionListener {
             topPanel.setBackground(new Color(255, 255, 234));
             topPanel.add(lTop);
             add(topPanel, BorderLayout.NORTH);
+
             JScrollPane scrollPane = new JScrollPane(tMostPopular);
             centerPanel.add(scrollPane, BorderLayout.CENTER);
         }
-
-
         add(centerPanel);
+
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 30));
         bottomPanel.setBackground(new Color(255, 255, 234));

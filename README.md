@@ -83,17 +83,20 @@ całkowitej liczby wypożyczeń.
 skróconym (tylko, gdy liczba wypożyczeń > 0). Jeżeli więcej niż 5 egzemplarzy
 ma tę samą liczbę wypożyczeń, to również powinny zostać wyświetlone.
 
-(c) Wyświetlanie 5 najbardziej poczytnych książek z każdej kategorii tematycznej
-(tylko, gdy liczba wypożyczeń > 0). Lista ta powinna sumować wypożyczenia
-dla wszystkich egzemplarzy danej pozycji wydawniczej, tj. o tym samym tytule
-oraz o tym samym autorze, ponieważ w bibliotece może znajdować się więcej,
-niż jeden egzemplarz tej samej książki.
-
 (d) Wyświetlanie 5 najbardziej poczytnych autorów – liczba wypożyczeń książek
 autora powinna być > 0. Dla każdego autora podać tytuł jego najbardziej
 popularnej książki (kryteria takie jak w poprzednim punkcie).
 
-*Wyświetlanie listy książek posortowanej wg wybranego kryterium spośród: nazwiska
+(d) Wyświetlanie listy książek posortowanej wg wybranego kryterium spośród: nazwiska
 autora, roku wydania, liczby wypożyczeń, tytułu.
+
+------------------------------------------------------------------------------
+(*) Wyświetlanie 5 najbardziej poczytnych książek z każdej kategorii tematycznej
+(tylko, gdy liczba wypożyczeń > 0). Lista ta powinna sumować wypożyczenia
+dla wszystkich egzemplarzy danej pozycji wydawniczej, tj. o tym samym tytule
+oraz o tym samym autorze, ponieważ w bibliotece może znajdować się więcej,
+niż jeden egzemplarz tej samej książki.)
+
+
 
 
